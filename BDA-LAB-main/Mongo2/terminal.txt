@@ -1,0 +1,187 @@
+bmsce@bmsce-Precision-T1700:~$ mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+Implicit session: session { "id" : UUID("8ce8a96f-7ed7-43be-acf2-67f1da3dccad") }
+MongoDB server version: 3.6.8
+Server has startup warnings: 
+2022-05-10T09:01:06.681+0530 I STORAGE  [initandlisten] 
+2022-05-10T09:01:06.681+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2022-05-10T09:01:06.681+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] 
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] 
+> use student134
+switched to db student134
+> db.createCollection("studentDetails")
+{ "ok" : 1 }
+> db.studentDetails.insert({
+... _id :  1,
+... Name : Ravi
+... ,
+... USN : ^C
+
+> db.studentDetails.insert({
+... _id : 1,
+... Name : "Ravi"
+... ,
+... USN : "1BM19CS127"
+... , sEM : 6,
+... ^C
+
+> db.studentDetails.insert({
+... _id : 1 , Name : "Ravi" , Usn : "1BM19CS127" , Sem : 6 , Dept_name :"CSE" , CGPA : 8.56 , Hobbies : ["skating"]});
+WriteResult({ "nInserted" : 1 })
+> db.studentDetails.insert({ _id : 2 , Name : "Skanda" , Usn : "1BM19CS138" , Sem : 6 , Dept_name :"CSE" , CGPA : 8.6 , Hobbies : ["hiking"]});
+WriteResult({ "nInserted" : 1 })
+> db.studentDetails.insert({ _id : 3 , Name : "Balaji" , Usn : "1BM19CS134" , Sem : 6 , Dept_name :"CSE" , CGPA : 8.52 , Hobbies : ["TT,Coding"]});
+WriteResult({ "nInserted" : 1 })
+> db.studentDetails.insert({ _id : 4 , Name : "ROHAN" , Usn : "1BM19CS131" , Sem : 6 , Dept_name :"CSE" , CGPA : 8.5 , Hobbies : ["TT"]});
+WriteResult({ "nInserted" : 1 })
+> db.studentDetails.insert({ _id : 5 , Name : "Sam" , Usn : "1BM19EC131" , Sem : 6 , Dept_name :"ECE" , CGPA : 8 , Hobbies : ["TT"]});
+WriteResult({ "nInserted" : 1 })
+> db.studentDetails.insert({ _id : 6 , Name : "Sam" , Usn : "1BM20EC131" , Sem : 5 , Dept_name :"ECE" , CGPA : 8 , Hobbies : ["TT"]});
+WriteResult({ "nInserted" : 1 })
+> db.studentDetails.aggregate({ $match  : {Dept_name :"CSE"}},{$group:"$Sem",Avg_CGPA : {$avg:"$CGPA"}},{$match: {$AVG_CGPA:{$gt:7.5}}})
+assert: command failed: {
+	"ok" : 0,
+	"errmsg" : "A pipeline stage specification object must contain exactly one field.",
+	"code" : 40323,
+	"codeName" : "Location40323"
+} : aggregate failed
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:16:14
+assert.commandWorked@src/mongo/shell/assert.js:403:5
+DB.prototype._runAggregate@src/mongo/shell/db.js:260:9
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1212:12
+@(shell):1:1
+
+2022-05-10T09:57:44.009+0530 E QUERY    [thread1] Error: command failed: {
+	"ok" : 0,
+	"errmsg" : "A pipeline stage specification object must contain exactly one field.",
+	"code" : 40323,
+	"codeName" : "Location40323"
+} : aggregate failed :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:16:14
+assert.commandWorked@src/mongo/shell/assert.js:403:5
+DB.prototype._runAggregate@src/mongo/shell/db.js:260:9
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1212:12
+@(shell):1:1
+> db.studentDetails.aggregate([{ $match  : {Dept_name :"CSE"}},{$group:"$Sem",Avg_CGPA : {$avg:"$CGPA"}},{$match: {$AVG_CGPA:{$gt:7.5}}}])
+assert: command failed: {
+	"ok" : 0,
+	"errmsg" : "A pipeline stage specification object must contain exactly one field.",
+	"code" : 40323,
+	"codeName" : "Location40323"
+} : aggregate failed
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:16:14
+assert.commandWorked@src/mongo/shell/assert.js:403:5
+DB.prototype._runAggregate@src/mongo/shell/db.js:260:9
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1212:12
+@(shell):1:1
+
+2022-05-10T09:58:19.941+0530 E QUERY    [thread1] Error: command failed: {
+	"ok" : 0,
+	"errmsg" : "A pipeline stage specification object must contain exactly one field.",
+	"code" : 40323,
+	"codeName" : "Location40323"
+} : aggregate failed :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:16:14
+assert.commandWorked@src/mongo/shell/assert.js:403:5
+DB.prototype._runAggregate@src/mongo/shell/db.js:260:9
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1212:12
+@(shell):1:1
+> db.studentDetails.aggregate([{ $match  : {Dept_name :"CSE"}},{$group:{_id: "$Sem"},Avg_CGPA : {$avg:"$CGPA"}},{$match: {$AVG_CGPA:{$gt:7.5}}}])
+assert: command failed: {
+	"ok" : 0,
+	"errmsg" : "A pipeline stage specification object must contain exactly one field.",
+	"code" : 40323,
+	"codeName" : "Location40323"
+} : aggregate failed
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:16:14
+assert.commandWorked@src/mongo/shell/assert.js:403:5
+DB.prototype._runAggregate@src/mongo/shell/db.js:260:9
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1212:12
+@(shell):1:1
+
+2022-05-10T09:59:06.501+0530 E QUERY    [thread1] Error: command failed: {
+	"ok" : 0,
+	"errmsg" : "A pipeline stage specification object must contain exactly one field.",
+	"code" : 40323,
+	"codeName" : "Location40323"
+} : aggregate failed :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+doassert@src/mongo/shell/assert.js:16:14
+assert.commandWorked@src/mongo/shell/assert.js:403:5
+DB.prototype._runAggregate@src/mongo/shell/db.js:260:9
+DBCollection.prototype.aggregate@src/mongo/shell/collection.js:1212:12
+@(shell):1:1
+> db.studentDetails.aggregate([{ $match  : {Dept_name :"CSE"}},{$group:{ $and : {_id: "$Sem",Avg_CGPA : {$avg:"$CGPA"}},{$match: {$AVG_CGPA:{$gt:7.5}}}])
+... 
+... ;
+... ^C
+
+
+bye
+bmsce@bmsce-Precision-T1700:~$ mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+Implicit session: session { "id" : UUID("40751dd3-ee79-43a2-b5f0-7225061d22ca") }
+MongoDB server version: 3.6.8
+Server has startup warnings: 
+2022-05-10T09:01:06.681+0530 I STORAGE  [initandlisten] 
+2022-05-10T09:01:06.681+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2022-05-10T09:01:06.681+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] 
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] 
+> use student134
+switched to db student134
+> db.studentDetails.aggregate({ $match  : {Dept_name :"CSE"}},{$group:{_id: "$Sem",Avg_CGPA : {$avg: "$CGPA"}}},{$match: {Avg_CGPA:{$gt:7.5}}})
+{ "_id" : 6, "Avg_CGPA" : 8.545 }
+> mongoexport --collection=studentDetails --db=student134 --out=Output.txt
+2022-05-10T10:21:24.027+0530 E QUERY    [thread1] SyntaxError: missing ; before statement @(shell):1:14
+> ^C
+bye
+bmsce@bmsce-Precision-T1700:~$ mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+Implicit session: session { "id" : UUID("216ace38-b7d7-4ec7-a816-c029756533c8") }
+MongoDB server version: 3.6.8
+Server has startup warnings: 
+2022-05-10T09:01:06.681+0530 I STORAGE  [initandlisten] 
+2022-05-10T09:01:06.681+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2022-05-10T09:01:06.681+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] 
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2022-05-10T09:01:13.306+0530 I CONTROL  [initandlisten] 
+> mongoexport --db=student134 --collection=studentDetails  --output="./Output.json"
+2022-05-10T10:22:47.611+0530 E QUERY    [thread1] SyntaxError: missing ; before statement @(shell):1:14
+> mongoexport --db=student134 --collection=studentDetails  --output="./Output.json";
+2022-05-10T10:22:56.219+0530 E QUERY    [thread1] SyntaxError: missing ; before statement @(shell):1:14
+> mongoexport --db student134 --collection studentDetails  --output "./Output.json";
+2022-05-10T10:23:13.099+0530 E QUERY    [thread1] SyntaxError: missing ; before statement @(shell):1:14
+> ^C
+bye
+bmsce@bmsce-Precision-T1700:~$ mongoexport --db=student134 --collection=studentDetails  --output="./Output.json";
+2022-05-10T10:25:26.146+0530	error parsing command line options: unknown option "output"
+2022-05-10T10:25:26.154+0530	try 'mongoexport --help' for more information
+bmsce@bmsce-Precision-T1700:~$ mongoexport --db=student134 --collection=studentDetails
+2022-05-10T10:25:49.480+0530	connected to: localhost
+{"_id":1.0,"Name":"Ravi","Usn":"1BM19CS127","Sem":6.0,"Dept_name":"CSE","CGPA":8.56,"Hobbies":["skating"]}
+{"_id":2.0,"Name":"Skanda","Usn":"1BM19CS138","Sem":6.0,"Dept_name":"CSE","CGPA":8.6,"Hobbies":["hiking"]}
+{"_id":3.0,"Name":"Balaji","Usn":"1BM19CS134","Sem":6.0,"Dept_name":"CSE","CGPA":8.52,"Hobbies":["TT,Coding"]}
+{"_id":4.0,"Name":"ROHAN","Usn":"1BM19CS131","Sem":6.0,"Dept_name":"CSE","CGPA":8.5,"Hobbies":["TT"]}
+{"_id":5.0,"Name":"Sam","Usn":"1BM19EC131","Sem":6.0,"Dept_name":"ECE","CGPA":8.0,"Hobbies":["TT"]}
+{"_id":6.0,"Name":"Sam","Usn":"1BM20EC131","Sem":5.0,"Dept_name":"ECE","CGPA":8.0,"Hobbies":["TT"]}
+2022-05-10T10:25:49.480+0530	exported 6 records
+bmsce@bmsce-Precision-T1700:~$ mongoexport --db=student134 --collection=studentDetails -o Output.txt
+2022-05-10T10:26:33.207+0530	connected to: localhost
+2022-05-10T10:26:33.207+0530	exported 6 records
+bmsce@bmsce-Precision-T1700:~$ 

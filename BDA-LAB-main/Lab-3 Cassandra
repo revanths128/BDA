@@ -1,0 +1,49 @@
+cqlsh> drop keyspace libaray134;
+cqlsh> create keyspace library134 with replication ={ 'class' : 'SimpleStrategy','replication_factor': 1};
+cqlsh> use library134;
+cqlsh:library134> Create table library_info (stud_id int, stud_name text, counter_val counter, book_name text, book_id int ,date_of_issue timestamp , Primary key ( stud_id,stud_name,book_name,book_id,date_of_issue ));
+cqlsh:library134> Begin batch
+              ... insert into library_info ( stud_id,stud_name, book_name,book_id,date_of_issue) values (003,'Shyam','IKIGAI',2341,'2019-03-09');
+              ... apply batch;
+InvalidRequest: Error from server: code=2200 [Invalid query] message="INSERT statements are not allowed on counter tables, use UPDATE instead"
+cqlsh:library134> Update library_info set counter_val=counter_val+1 where stud_id = 1 stud_name = 'Balaji' book_name = 'harry' book_id = 123 date_of_issue ='2022-03-12' ; 
+SyntaxException: line 1:68 mismatched input 'stud_name' expecting EOF (...1 where stud_id = 1 [stud_name]...)
+cqlsh:library134> Update library_info set counter_val=counter_val+1 where stud_id = 1 and  stud_name = 'Balaji' and  book_name = 'harry' and  book_id = 123 and date_of_issue ='2022-03-12' ; 
+cqlsh:library134> select * from library_info;
+
+ stud_id | stud_name | book_name | book_id | date_of_issue                   | counter_val
+---------+-----------+-----------+---------+---------------------------------+-------------
+       1 |    Balaji |     harry |     123 | 2022-03-11 18:30:00.000000+0000 |           1
+
+(1 rows)
+cqlsh:library134> Update library_info set counter_val=counter_val+1 where stud_id = 1 and  stud_name = 'Balaji' and  book_name = 'harry' and  book_id = 123 and date_of_issue ='2022-03-12' ; 
+cqlsh:library134> select * from library_info;
+
+ stud_id | stud_name | book_name | book_id | date_of_issue                   | counter_val
+---------+-----------+-----------+---------+---------------------------------+-------------
+       1 |    Balaji |     harry |     123 | 2022-03-11 18:30:00.000000+0000 |           2
+
+(1 rows)
+cqlsh:library134> Update library_info set counter_val=counter_val+1 where stud_id = 1 and  stud_name = 'Balaji' and  book_name = 'harry' and  book_id = 123 and date_of_issue ='2022-03-13' ; 
+cqlsh:library134> select * from library_info;
+
+ stud_id | stud_name | book_name | book_id | date_of_issue                   | counter_val
+---------+-----------+-----------+---------+---------------------------------+-------------
+       1 |    Balaji |     harry |     123 | 2022-03-11 18:30:00.000000+0000 |           2
+       1 |    Balaji |     harry |     123 | 2022-03-12 18:30:00.000000+0000 |           1
+
+(2 rows)
+cqlsh:library134> Update library_info set counter_val=2  where stud_id = 112 and  stud_name = 'Sai' and  book_name = 'BDA' and  book_id = 134 and date_of_issue ='2022-03-13' ; 
+InvalidRequest: Error from server: code=2200 [Invalid query] message="Cannot set the value of counter column counter_val (counters can only be incremented/decremented, not set)"
+cqlsh:library134> Update library_info set counter_val=counter_val +2  where stud_id = 112 and  stud_name = 'Sai' and  book_name = 'BDA' and  book_id = 134 and date_of_issue ='2022-03-13' ; 
+cqlsh:library134> select * from library_info;
+
+ stud_id | stud_name | book_name | book_id | date_of_issue                   | counter_val
+---------+-----------+-----------+---------+---------------------------------+-------------
+       1 |    Balaji |     harry |     123 | 2022-03-11 18:30:00.000000+0000 |           2
+       1 |    Balaji |     harry |     123 | 2022-03-12 18:30:00.000000+0000 |           1
+     112 |       Sai |       BDA |     134 | 2022-03-12 18:30:00.000000+0000 |           2
+
+(3 rows)
+
+

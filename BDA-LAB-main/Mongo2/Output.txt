@@ -1,0 +1,6 @@
+{"_id":1.0,"Name":"Ravi","Usn":"1BM19CS127","Sem":6.0,"Dept_name":"CSE","CGPA":8.56,"Hobbies":["skating"]}
+{"_id":2.0,"Name":"Skanda","Usn":"1BM19CS138","Sem":6.0,"Dept_name":"CSE","CGPA":8.6,"Hobbies":["hiking"]}
+{"_id":3.0,"Name":"Balaji","Usn":"1BM19CS134","Sem":6.0,"Dept_name":"CSE","CGPA":8.52,"Hobbies":["TT,Coding"]}
+{"_id":4.0,"Name":"ROHAN","Usn":"1BM19CS131","Sem":6.0,"Dept_name":"CSE","CGPA":8.5,"Hobbies":["TT"]}
+{"_id":5.0,"Name":"Sam","Usn":"1BM19EC131","Sem":6.0,"Dept_name":"ECE","CGPA":8.0,"Hobbies":["TT"]}
+{"_id":6.0,"Name":"Sam","Usn":"1BM20EC131","Sem":5.0,"Dept_name":"ECE","CGPA":8.0,"Hobbies":["TT"]}

@@ -1,0 +1,130 @@
+bmsce@bmsce-Precision-T1700:~$ mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+Implicit session: session { "id" : UUID("a5cad72a-ff4b-4697-bbdd-a04987fd3d28") }
+MongoDB server version: 3.6.8
+Server has startup warnings: 
+2022-04-12T09:11:52.542+0530 I STORAGE  [initandlisten] 
+2022-04-12T09:11:52.542+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2022-04-12T09:11:52.542+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2022-04-12T09:11:55.927+0530 I CONTROL  [initandlisten] 
+2022-04-12T09:11:55.927+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2022-04-12T09:11:55.927+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2022-04-12T09:11:55.927+0530 I CONTROL  [initandlisten] 
+> db.Student.count()
+0
+> db.Student.insert({id=1,Studname="Rohan",Grade"S",Class"LKG",Hobbies:"Killing sam"};
+... );
+2022-04-12T10:26:43.319+0530 E QUERY    [thread1] SyntaxError: missing : after property id @(shell):1:21
+> db.Student.insert({id=1,Studname="Rohan",Grade"S",Class"LKG",Hobbies:"Killing sam"} );
+2022-04-12T10:26:49.031+0530 E QUERY    [thread1] SyntaxError: missing : after property id @(shell):1:21
+> db.Student.insert({id=1,Studname="Rohan",Grade"S",Class="LKG",Hobbies="Killing sam"} );
+2022-04-12T10:27:04.119+0530 E QUERY    [thread1] SyntaxError: missing : after property id @(shell):1:21
+> db.Student.insert({id=1,Studname="Rohan",Grade="S",Class="LKG",Hobbies="Killing sam"} );
+2022-04-12T10:27:13.623+0530 E QUERY    [thread1] SyntaxError: missing : after property id @(shell):1:21
+> db.Student.insert({id:1,Studname:"Rohan",Grade:"S",Class:"LKG",Hobbies:"Killing sam"} );
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:2,Studname:"Ravi",Grade:"S+",Class:"UKG",Hobbies:"Skatting"} );
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:2,Studname:"Shivanshu",Grade:"C*",Class:"UKG",Hobbies:"Dinking talking to much"} );
+WriteResult({ "nInserted" : 1 })
+> db.Student.update({id:2},{$set:{Hobbies:"Project guy"}},{upsert:true});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.sort({id}).pretty();
+2022-04-12T10:33:27.768+0530 E QUERY    [thread1] ReferenceError: id is not defined :
+@(shell):1:18
+> db.Student.sort({id:-1}).pretty();
+2022-04-12T10:33:38.536+0530 E QUERY    [thread1] TypeError: db.Student.sort is not a function :
+@(shell):1:1
+> db.Student.sort({id:-1}).pretty();
+2022-04-12T10:34:17.657+0530 E QUERY    [thread1] TypeError: db.Student.sort is not a function :
+@(shell):1:1
+> db.Student.sort({id:-1});
+2022-04-12T10:34:34.664+0530 E QUERY    [thread1] TypeError: db.Student.sort is not a function :
+@(shell):1:1
+> db.Student.sort({id:1});
+2022-04-12T10:34:58.408+0530 E QUERY    [thread1] TypeError: db.Student.sort is not a function :
+@(shell):1:1
+> db.Student.sort({id});
+2022-04-12T10:35:02.568+0530 E QUERY    [thread1] ReferenceError: id is not defined :
+@(shell):1:18
+> db.Student.find().sort({id:-1});
+{ "_id" : ObjectId("625506e608f621710537ed17"), "id" : 2, "Studname" : "Ravi", "Grade" : "S+", "Class" : "UKG", "Hobbies" : "Project guy" }
+{ "_id" : ObjectId("6255074208f621710537ed18"), "id" : 2, "Studname" : "Shivanshu", "Grade" : "C*", "Class" : "UKG", "Hobbies" : "Dinking talking to much" }
+{ "_id" : ObjectId("625506c508f621710537ed16"), "id" : 1, "Studname" : "Rohan", "Grade" : "S", "Class" : "LKG", "Hobbies" : "Killing sam" }
+> db.Student.count();
+3
+> db.Student.find({id:1},{StudName:1,Grade:1,id:0});
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "Projection cannot have a mix of inclusion and exclusion.",
+	"code" : 2,
+	"codeName" : "BadValue"
+}
+> ^C
+bye
+bmsce@bmsce-Precision-T1700:~$ mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+Implicit session: session { "id" : UUID("a5cad72a-ff4b-4697-bbdd-a04987fd3d28") }
+MongoDB server version: 3.6.8
+Server has startup warnings: 
+2022-04-12T09:11:52.542+0530 I STORAGE  [initandlisten] 
+2022-04-12T09:11:52.542+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2022-04-12T09:11:52.542+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2022-04-12T09:11:55.927+0530 I CONTROL  [initandlisten] 
+2022-04-12T09:11:55.927+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2022-04-12T09:11:55.927+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2022-04-12T09:11:55.927+0530 I CONTROL  [initandlisten] 
+> db.Student.count()
+0
+> db.Student.insert({id=1,Studname="Rohan",Grade"S",Class"LKG",Hobbies:"Killing sam"};
+... );
+2022-04-12T10:26:43.319+0530 E QUERY    [thread1] SyntaxError: missing : after property id @(shell):1:21
+> db.Student.insert({id=1,Studname="Rohan",Grade"S",Class"LKG",Hobbies:"Killing sam"} );
+2022-04-12T10:26:49.031+0530 E QUERY    [thread1] SyntaxError: missing : after property id @(shell):1:21
+> db.Student.insert({id=1,Studname="Rohan",Grade"S",Class="LKG",Hobbies="Killing sam"} );
+2022-04-12T10:27:04.119+0530 E QUERY    [thread1] SyntaxError: missing : after property id @(shell):1:21
+> db.Student.insert({id=1,Studname="Rohan",Grade="S",Class="LKG",Hobbies="Killing sam"} );
+2022-04-12T10:27:13.623+0530 E QUERY    [thread1] SyntaxError: missing : after property id @(shell):1:21
+> db.Student.insert({id:1,Studname:"Rohan",Grade:"S",Class:"LKG",Hobbies:"Killing sam"} );
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:2,Studname:"Ravi",Grade:"S+",Class:"UKG",Hobbies:"Skatting"} );
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({id:2,Studname:"Shivanshu",Grade:"C*",Class:"UKG",Hobbies:"Dinking talking to much"} );
+WriteResult({ "nInserted" : 1 })
+> db.Student.update({id:2},{$set:{Hobbies:"Project guy"}},{upsert:true});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.sort({id}).pretty();
+2022-04-12T10:33:27.768+0530 E QUERY    [thread1] ReferenceError: id is not defined :
+@(shell):1:18
+> db.Student.sort({id:-1}).pretty();
+2022-04-12T10:33:38.536+0530 E QUERY    [thread1] TypeError: db.Student.sort is not a function :
+@(shell):1:1
+> db.Student.sort({id:-1}).pretty();
+2022-04-12T10:34:17.657+0530 E QUERY    [thread1] TypeError: db.Student.sort is not a function :
+@(shell):1:1
+> db.Student.sort({id:-1});
+2022-04-12T10:34:34.664+0530 E QUERY    [thread1] TypeError: db.Student.sort is not a function :
+@(shell):1:1
+> db.Student.sort({id:1});
+2022-04-12T10:34:58.408+0530 E QUERY    [thread1] TypeError: db.Student.sort is not a function :
+@(shell):1:1
+> db.Student.sort({id});
+2022-04-12T10:35:02.568+0530 E QUERY    [thread1] ReferenceError: id is not defined :
+@(shell):1:18
+> db.Student.find().sort({id:-1});
+{ "_id" : ObjectId("625506e608f621710537ed17"), "id" : 2, "Studname" : "Ravi", "Grade" : "S+", "Class" : "UKG", "Hobbies" : "Project guy" }
+{ "_id" : ObjectId("6255074208f621710537ed18"), "id" : 2, "Studname" : "Shivanshu", "Grade" : "C*", "Class" : "UKG", "Hobbies" : "Dinking talking to much" }
+{ "_id" : ObjectId("625506c508f621710537ed16"), "id" : 1, "Studname" : "Rohan", "Grade" : "S", "Class" : "LKG", "Hobbies" : "Killing sam" }
+> db.Student.count();
+3
+> db.Student.find({id:1},{StudName:1,Grade:1,id:0});
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "Projection cannot have a mix of inclusion and exclusion.",
+	"code" : 2,
+	"codeName" : "BadValue"
+}
+> ^C
+bye
